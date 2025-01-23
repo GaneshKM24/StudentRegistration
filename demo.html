@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Form with Validation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .step input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    /* .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    } */
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .buttons button[disabled] {
+      background-color: #ccc;
+    }
+
+    .steps-indicator {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .steps-indicator span {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #ccc;
+      line-height: 25px;
+      color: white;
+      margin-right: 5px;
+    }
+
+    .steps-indicator .active {
+      background-color: #007BFF;
+    }
+  </style>
+  <link rel="stylesheet" href="application-form.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2>Multi-Step Form with Validation</h2>
+
+    <!-- Steps Indicator -->
+    <div class="steps-indicator">
+      <span class="step-number active">1</span>
+      <span class="step-number">2</span>
+      <!-- <span class="step-number">3</span> -->
+    </div>
+
+    <!-- Step 1 -->
+    <form id="multiStepForm" action="../template-2/Home.html">
+      <div class="step active">
+        <div class="form first">
+          <div class="details personal">
+            <span class="title">Personal Details</span>
+
+            <div class="fields">
+              <div class="input-field">
+                <label for="fullname">Full Name</label>
+                <input type="text" placeholder="Enter Your Name" id="fullname" name="fullname">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="birthdate">Date of Birth</label>
+                <input type="date" placeholder="Enter Birth date" id="birthdate" name="birthdate">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field age">
+                <label for="">Age</label>
+                <input type="text" id="age" readonly>
+              </div>
+
+              <div class="input-field">
+                <label for="email">Email</label>
+                <input type="text" placeholder="Enter Your Email" id="email" name="email">
+                <span class="error"></span>
+              </div>
+
+
+
+              <div class="input-field">
+                <label for="gender">Select your gender:</label>
+                <select id="gender" name="gender">
+                  <option value="">--Select--</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="error"></span>
+                <!-- <p id="genderError" style="color:red;"></p> -->
+              </div>
+
+              <div class="input-field">
+                <label for="">Parent's Name</label>
+                <input type="text" placeholder="Enter Parent's Name" id="parent_name">
+                <span class="error"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="details personal">
+            <span class="title">Address Details</span>
+
+            <div class="fields">
+              <div class="input-field">
+                <label for="">Country</label>
+                <select class="form-select country" id="country" name="country" onchange="loadStates()" required>
+                  <option value="" disabled selected>Select the Country</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="">State</label>
+                <select class="form-select state" id="state" name="state" required>
+                  <option value="" disabled selected>Select the State</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field ">
+                <!-- <div>
+                  P-num
+                  <label for="">code</label>
+                  <input type="tel" name="" id="" class="code">
+                </div>
+                <div class="input-mob"> -->
+                <label for="mobile">Mobile Number</label>
+                <input type="text" class="num" placeholder="Enter Mobile Number" id="mobile" maxlength="10">
+                <span class="error"></span>
+                <!-- </div> -->
+              </div>
+
+
+
+              <div class="input-field">
+                <label for="">Address Line 1</label>
+                <input type="text" placeholder="Enter Address" id="add_1">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="">Address Line 2</label>
+                <input type="text" placeholder="Enter Address" id="add_2">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="">Pincode</label>
+                <input type="text" placeholder="Enter Your Pincode" id="pincode" oninput="validatePincode1()">
+                <span class="error"></span>
+              </div>
+
+            </div>
+
+            <!-- <button class="nextBtn" id="submit" type="submit">
+                    <span class="btnText">Next</span>
+                </button> -->
+
+            <!-- <input type="submit" value="Next"> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="form first">
+          <div class="details personal">
+            <span class="title">Education Details</span>
+
+            <div class="fields">
+
+              <div class="input-field">
+                <label for="schoolname">10th school name</label>
+                <input type="text" placeholder="Enter Your school Name" id="schoolname" name="schoolname">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="10th_passed">10th Date of passed out</label>
+                <input type="date" placeholder="Date of passed out" id="10th_passed" name="10th_passed">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field ">
+                <label for="">10th Mark</label>
+                <input type="number" id="mark_10th" placeholder="Enter your 10th mark">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="reg_num">10th register number</label>
+                <input type="text" placeholder="Enter 10th register number" id="reg_num" name="reg_num">
+                <span class="error"></span>
+              </div>
+
+            </div>
+
+            <div class="fields">
+
+              <div class="input-field">
+                <label for="12schoolname">12th school name</label>
+                <input type="text" placeholder="Enter Your school Name" id="schoolname_12" name="12schoolname">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="12th_passed">12th Date of passed out</label>
+                <input type="date" placeholder="Date of passed out" id="12th_passed" name="12th_passed">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field ">
+                <label for="">12th Mark</label>
+                <input type="number" id="mark_12th" placeholder="Enter your 12th mark">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="12reg_num">12th register number</label>
+                <input type="text" placeholder="Enter 12th register number" id="reg_num_12" name="12reg_num">
+                <span class="error"></span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="details personal">
+            <span class="title">Course Details</span>
+
+            <div class="fields">
+              <div class="input-field">
+                <label for="degree">Select Degree:</label>
+                <select id="degree" name="degree" onchange="populateCourses()">
+                  <option value="">--Select Degree--</option>
+                  <option value="bachelor">Bachelor's</option>
+                  <option value="master">Master's</option>
+                  <option value="phd">PhD</option>
+                  <option value="arts">Arts and Science</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="course">Select Course:</label>
+                <select id="course" name="course">
+                  <option value="">--Select Course--</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="branch">Select Branch</label>
+                <select id="branch" name="branch" >
+                  <option value="">---select---</option>
+                  <option value="chennai">chennai</option>
+                  <option value="bangalore">bangalore</option>
+                  <option value="pune">pune</option>
+                  <option value="kochi">kochi</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+            </div>
+
+            <!-- <button class="nextBtn" id="submit" type="submit">
+                  <span class="btnText">Next</span>
+              </button> -->
+
+            <!-- <input type="submit" value="Next"> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- step 3 -->
+       
+      <div class="step">
+        <div class="form first">
+          <div class="details personal">
+            <span class="title">Education Details</span>
+
+            <div class="fields">
+
+              <div class="input-field">
+                <label for="schoolname">10th school name</label>
+                <input type="text" placeholder="Enter Your school Name" id="schoolname" name="schoolname">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="10th_passed">10th Date of passed out</label>
+                <input type="date" placeholder="Date of passed out" id="10th_passed" name="10th_passed">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field ">
+                <label for="">10th Mark</label>
+                <input type="number" id="mark_10th" placeholder="Enter your 10th mark">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="reg_num">10th register number</label>
+                <input type="text" placeholder="Enter 10th register number" id="reg_num" name="reg_num">
+                <span class="error"></span>
+              </div>
+
+            </div>
+
+            <div class="fields">
+
+              <div class="input-field">
+                <label for="12schoolname">12th school name</label>
+                <input type="text" placeholder="Enter Your school Name" id="schoolname_12" name="12schoolname">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="12th_passed">12th Date of passed out</label>
+                <input type="date" placeholder="Date of passed out" id="12th_passed" name="12th_passed">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field ">
+                <label for="">12th Mark</label>
+                <input type="number" id="mark_12th" placeholder="Enter your 12th mark">
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="12reg_num">12th register number</label>
+                <input type="text" placeholder="Enter 12th register number" id="reg_num_12" name="12reg_num">
+                <span class="error"></span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="details personal">
+            <span class="title">Course Details</span>
+
+            <div class="fields">
+              <div class="input-field">
+                <label for="degree">Select Degree:</label>
+                <select id="degree" name="degree" onchange="populateCourses()">
+                  <option value="">--Select Degree--</option>
+                  <option value="bachelor">Bachelor's</option>
+                  <option value="master">Master's</option>
+                  <option value="phd">PhD</option>
+                  <option value="arts">Arts and Science</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="course">Select Course:</label>
+                <select id="course" name="course">
+                  <option value="">--Select Course--</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+              <div class="input-field">
+                <label for="branch">Select Branch</label>
+                <select id="branch" name="branch" >
+                  <option value="">---select---</option>
+                  <option value="chennai">chennai</option>
+                  <option value="bangalore">bangalore</option>
+                  <option value="pune">pune</option>
+                  <option value="kochi">kochi</option>
+                </select>
+                <span class="error"></span>
+              </div>
+
+            </div>
+
+            <!-- <button class="nextBtn" id="submit" type="submit">
+                  <span class="btnText">Next</span>
+              </button> -->
+
+            <!-- <input type="submit" value="Next"> -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="buttons">
+        <button type="button" id="prevBtn" onclick="prevStep()" disabled>Previous</button>
+        <button type="button" id="nextBtn" onclick="nextStep()">Next</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="demo.js"></script>
+</body>
+
+</html>

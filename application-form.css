@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    /* overflow-x: hidden; */
+}
+
+body {
+    font-family: "Chivo", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #00B78A;
+}
+.container{
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    background-color: #fdfcfc;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+.container header{
+    font-size: 30px;
+    font-weight: 600;
+    display: inline;
+    position: relative;
+}
+.container header::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 100%;
+    background-color: #00B78A;
+    border-radius: 8px;
+}
+.container form{
+    position: relative;
+    min-height: 490px;
+    background-color: #F2FBF9;
+    margin-top: 16px;
+    /* overflow-x: hidden; */
+}
+
+.container form .details{
+    margin-top: 30px;
+}
+
+.container form .title{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+}
+.container form .fields{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* column-gap: 20px; */
+    flex-wrap: wrap;
+}
+form .fields .input-field{
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.age, .age>label, .age>input{
+    width: 70px;
+    margin-top: -3px;
+}
+.P-num{
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+.P-num div{
+    display: flex;
+    flex-direction: column;
+    /* background-color: red; */
+}
+.P-num .code{
+    width: 20px;
+}
+.P-num .num{
+    width: 170px;
+}
+.input-field label{
+    font-size: 12px;
+    font-weight: 500;
+}
+.input-field label::after{
+    content: '    *';
+    color: red;
+}
+.input-field input,.input-field select{
+    outline: none;
+    border: 1px solid #aaaa;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 15px;
+    height: 42px;
+    margin: 8px 0;
+}
+.input-field input:is(:focus),.input-field select:is(:focus){
+    box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.input-field input[type="date"]{
+    color: #707070;
+}
+.input-field input[type="date"]:valid{
+    color: #333;
+}
+
+.container form button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    background-color: rgb(124, 124, 224);
+    width: 20%;
+    border: none;
+    outline: none;
+    color: #fff;
+    margin: 40px 0;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+form button:hover{
+    background-color: #00B78A;
+}
+
+.input-field.error input,.input-mob.error input,.input-field.error select{
+    border: 1px solid red;
+}
+.input-field.success input,.input-mob.success input,.input-field.success select {
+    border: 1px solid #00B78A;
+}
+.input-field.error span{
+    color: red;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-left: 5px;
+}
+.input-mob.error span{
+    color: red;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-left: 5px;
+}
+
+form .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
